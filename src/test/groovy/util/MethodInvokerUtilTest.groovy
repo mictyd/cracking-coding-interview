@@ -35,7 +35,7 @@ class MethodInvokerUtilTest extends Specification {
         def returnValues = invokeMethods(object, [voidMethod], voidMethod.returnType)
 
         then:
-        returnValues == []
+        returnValues == [null]
     }
 
     def 'should execute int method and return type'() {

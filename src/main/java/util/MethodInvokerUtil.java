@@ -21,15 +21,26 @@ public class MethodInvokerUtil {
         return methods.stream()
                 .map(method -> {
                     try {
-                        returnClass.get
-                        System.out.println(returnClass);
-                        return returnClass.cast(method.invoke(object, params));
+                        Class<T> ff = getBoxedClass(returnClass);
+                        return ff.cast(method.invoke(object, params));
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         throw new RuntimeException(e);
                     }
                 })
                 .collect(Collectors.toList());
-//        return new ArrayList<T>();
     }
 
+    private static Class getBoxedClass(Class clazz) {
+        char a = 1;
+        switch (clazz.toString()) {
+            case "int": return Integer.class;
+            case "long": return Integer.class;
+            case "float": return Float.class;
+            case "double": return Double.class;
+            case "boolean": return Boolean.class;
+            case "void": return Void.class;
+            case "char": return Character.class;
+            default: return clazz;
+        }
+    }
 }
